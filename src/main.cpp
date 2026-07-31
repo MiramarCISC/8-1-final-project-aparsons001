@@ -1,95 +1,75 @@
-#include "project.hpp"
+#include "gameBoard.hpp"
 #include <iostream>
+#include <string>
+
 
 using namespace std;
 
+
 int main() {
-    int choice = -1;
-
-    cout << "CISC 192 Final Project Sample" << endl;
-    cout << "Sample code is provided only as an example." << endl;
-    cout << "Delete or replace the sample code before final submission." << endl;
-
+    
+    Gamer* head =  nullptr;
+    int selection = 0;
+    addPoint(head);
+  
+   
+    
     do {
-        printMenu();
-        cin >> choice;
+        // displays menu of options to choose
+        showTitleCard();
+        cout << "Enter your selection (1-6): ";
+        cin >> selection;
+        cin.ignore();
 
-        while (!isValidMenuChoice(choice)) {
-            cout << "Invalid choice. Enter 0-4: ";
-            cin >> choice;
+        //validates input
+        while (cin.fail() || selection < 1 || selection > 6) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid selection. Enter a number between 1-7: ";
+            cin >> selection;
         }
 
-        switch (choice) {
-            case 1: {
-                Student student("A123", "Alex");
-                student.getScoreList().addScore(90.0);
-                student.getScoreList().addScore(80.0);
-                student.getScoreList().addScore(100.0);
-                student.getScoreList().sortAscending();
-
-                printStudent(student);
-                cout << "Score 100 found at index "
-                     << student.getScoreList().findScore(100.0)
-                     << endl;
-
+        // requests user input for name and score
+        switch (selection) {
+            case 1: 
+            // add new gamer
+                addPoint(head);
                 break;
-            }
-
-            case 2: {
-                TaskList tasks;
-                tasks.insertFront(Task("study", 5));
-                tasks.insertFront(Task("project", 4));
-                tasks.markTaskComplete("study");
-
-                cout << "Task count: " << tasks.countTasks() << endl;
-                cout << "Removed completed tasks: "
-                     << tasks.removeCompletedTasks()
-                     << endl;
-                cout << "Remaining task count: " << tasks.countTasks() << endl;
-
+            
+            // displays gamer name and points
+            case 2: 
+                displayPoints(head);
                 break;
+            
+            // save points w/ nullptr check
+            case 3: 
+            if (head == nullptr) {
+                cout << "No points to save. " << endl;
+            } else {
+                savePoints(head);
             }
-
-            case 3: {
-                InventoryItem items[MAX_INVENTORY_ITEMS];
-                int count = InventoryReport::readInventoryFile(
-                    "data/inventory.txt",
-                    items,
-                    MAX_INVENTORY_ITEMS
-                );
-
-                cout << "Read " << count << " inventory item(s)." << endl;
-                cout << "Total inventory value: "
-                     << InventoryReport::calculateTotalInventoryValue(items, count)
-                     << endl;
-
-                if (InventoryReport::writeInventoryReport(
-                        "inventory_report.txt",
-                        items,
-                        count
-                    )) {
-                    cout << "Report written to inventory_report.txt" << endl;
-                }
-
                 break;
-            }
-
+            
+            // load pointList
             case 4:
-                cout << "Use this sample only as an example. "
-                     << "Delete or replace sample code before submission."
-                     << endl;
+                loadPoints(head);  
                 break;
+      
+            //delete saved list
+            case 5:
+                deleteList(head);
+            break;
 
-            case 0:
+            //exit
+            case 6:
                 cout << "Goodbye!" << endl;
                 break;
 
             default:
-                cout << "Unexpected choice." << endl;
+                cout << "Unexpected selection." << endl;
                 break;
         }
 
-    } while (choice != 0);
-
+    } while (selection != 6);
     return 0;
 }
