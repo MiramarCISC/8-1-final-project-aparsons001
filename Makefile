@@ -4,8 +4,8 @@ CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic -Iinclude
 APP_TARGET = main
 TEST_TARGET = test_project
 
-APP_SOURCES = src/main.cpp src/project.cpp
-TEST_SOURCES = tests/test_project.cpp src/project.cpp
+APP_SOURCES = src/main.cpp src/gameBoard.cpp
+TEST_SOURCES = tests/test_gameBoard.cpp src/gameBoard.cpp
 
 .PHONY: all test clean run
 
