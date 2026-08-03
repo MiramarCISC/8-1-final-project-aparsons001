@@ -7,13 +7,14 @@ using namespace std;
 
 
 int main() {
-    
-    Gamer* head =  nullptr;
-    int selection = 0;
-    addPoint(head);
-  
    
+    Gamer* head =  nullptr;    
+    const int maxGamers = 100;
+    std::string serialNumbers[maxGamers];
+    int selection = 0;
+    addPoint(head, serialNumbers, maxGamers);
     
+   
     do {
         // displays menu of options to choose
         showTitleCard();
@@ -33,7 +34,7 @@ int main() {
         switch (selection) {
             case 1: 
             // add new gamer
-                addPoint(head);
+                addPoint(head, serialNumbers, maxGamers);
                 break;
             
             // displays gamer name and points
@@ -69,7 +70,22 @@ int main() {
                 cout << "Unexpected selection." << endl;
                 break;
         }
-
-    } while (selection != 6);
+        
+        cout << "Current inputNames array:" << endl;
+        for(int i = 0; i < maxGamers; ++i){
+            if (!inputNames[i].empty()) {
+                cout << "Name[" << i << "] :" <<inputNames[i] << endl;
+            }
+        }
+        
+        cout << "Current serialNumbers array:" << endl;
+        for (int i = 0; i < maxGamers; ++i) {
+            if (!serialNumbers[i].empty()) {
+                cout << "Serial[" << i <<"]: " << serialNumbers[i] << endl;
+            }
+        }
+    } 
+    
+    while (selection != 6);
     return 0;
 }

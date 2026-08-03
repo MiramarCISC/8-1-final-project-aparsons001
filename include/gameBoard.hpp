@@ -9,9 +9,13 @@ struct Gamer {
     Gamer* next; // Pointer for linked list
 };
 
+extern const int maxGamers;
+extern std::string serialNumbers[];
+extern std::string inputNames[];
+
 //Processing functions
 void showTitleCard();
-void addPoint(Gamer*& head);
+void addPoint(Gamer*&, std::string[], int);
 void displayPoints(Gamer*& head);
 void savePoints(Gamer*& head);
 void loadPoints(Gamer*& head);
